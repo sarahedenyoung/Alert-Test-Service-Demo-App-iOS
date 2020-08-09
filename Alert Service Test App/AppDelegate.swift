@@ -9,13 +9,10 @@
 import UIKit
 import UserNotifications
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         registerForPushNotifications()
         return true
     }
@@ -33,16 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-    
+
     func application(
-      _ application: UIApplication,
-      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
-      let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-      let token = tokenParts.joined()
-        //register device token api
-      print("Device Token: \(token)")
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        registerDeviceRequest(token: token)
     }
 
     func application(
@@ -51,12 +46,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print("Failed to register: \(error)")
     }
     
+    func application(
+      _ application: UIApplication,
+      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+      fetchCompletionHandler completionHandler:
+      @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        
+      guard var aps = userInfo["aps"] as? [String: AnyObject] else {
+        completionHandler(.failed)
+        return
+      }
+        guard let notificationId = aps.removeValue(forKey: "notificationId") as? String else {
+          completionHandler(.failed)
+          return
+        }
+        print("Received Notification: \(notificationId)")
+        acknowledgeNotificationRequest(notificationId: notificationId)
+
+    }
+    
     func registerForPushNotifications() {
       UNUserNotificationCenter.current()
         .requestAuthorization(options: [.alert, .sound, .badge]) {
           [weak self] granted, error in
           print("Permission granted: \(granted)")
-    
             self?.getNotificationSettings()
       }
     }
@@ -71,7 +85,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
     
+    func acknowledgeNotificationRequest(notificationId: String) {
+        let url = "ackNotification"
+        let parameters = ["notificationId": notificationId, "notificationName": "Demo Test Notification"]
+        MakeHttpRequest.sharedInstance.postRequest(api: url, parameters: parameters)
+        print("Acknowledgement sent for notification with ID: \(notificationId)")
+    }
+    
+    func registerDeviceRequest(token: String) {
+        guard let uuid = UIDevice.current.identifierForVendor?.uuidString else { return }
+            let url = "registerDevice"
+            let parameters = ["deviceId":uuid, "deviceToken":token]
+            MakeHttpRequest.sharedInstance.postRequest(api: url, parameters: parameters)
+        print("UUID: \(uuid)")
+        print("Device Token: \(token)")
+    }
 }
-
-
-

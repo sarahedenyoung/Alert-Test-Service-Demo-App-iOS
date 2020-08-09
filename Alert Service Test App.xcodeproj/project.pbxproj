@@ -13,6 +13,7 @@
 		C3A61B8324D9A7D000F85269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3A61B8224D9A7D000F85269 /* Assets.xcassets */; };
 		C3A61B8624D9A7D000F85269 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3A61B8524D9A7D000F85269 /* Preview Assets.xcassets */; };
 		C3A61B8924D9A7D000F85269 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3A61B8724D9A7D000F85269 /* LaunchScreen.storyboard */; };
+		C3A61B9524DA301200F85269 /* MakeHttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A61B9424DA301200F85269 /* MakeHttpRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		C3A61B8A24D9A7D000F85269 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3A61B9024DA1D4900F85269 /* Alert Service Test AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Alert Service Test AppRelease.entitlements"; sourceTree = "<group>"; };
 		C3A61B9224DA220500F85269 /* Alert Service Test AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Alert Service Test AppDebug.entitlements"; sourceTree = "<group>"; };
+		C3A61B9424DA301200F85269 /* MakeHttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeHttpRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		C3A61B7B24D9A7CD00F85269 /* Alert Service Test App */ = {
 			isa = PBXGroup;
 			children = (
+				C3A61B9324DA2FEA00F85269 /* Network */,
 				C3A61B9224DA220500F85269 /* Alert Service Test AppDebug.entitlements */,
 				C3A61B9024DA1D4900F85269 /* Alert Service Test AppRelease.entitlements */,
 				C3A61B7C24D9A7CD00F85269 /* AppDelegate.swift */,
@@ -77,6 +80,14 @@
 				C3A61B8524D9A7D000F85269 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C3A61B9324DA2FEA00F85269 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C3A61B9424DA301200F85269 /* MakeHttpRequest.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A61B9524DA301200F85269 /* MakeHttpRequest.swift in Sources */,
 				C3A61B7D24D9A7CD00F85269 /* AppDelegate.swift in Sources */,
 				C3A61B7F24D9A7CD00F85269 /* SceneDelegate.swift in Sources */,
 				C3A61B8124D9A7CD00F85269 /* ContentView.swift in Sources */,
@@ -299,7 +311,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Alert-Service-Test-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.salesforce.IAMessagingAlertServiceTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -322,7 +334,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Alert-Service-Test-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.salesforce.IAMessagingAlertServiceTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
